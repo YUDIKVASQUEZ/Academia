@@ -26,8 +26,8 @@
                             <div class="form-group">
                                 <label><b>Documento de Identidad*</b></label>
                                 <div  >
-                                    <label for="Document_type">Tipo de documento *</label>
-                                    <select class="form-select form-control" id="Document_type" name="Document_type" aria-label="Floating label select example">
+                                    <label for="document_type">Tipo de documento *</label>
+                                    <select class="form-select form-control" id="document_type" name="document_type" aria-label="Floating label select example">
                                         <option value="CC">CC</option>
                                         <option value="TI">TI</option>
                                         <option value="CE">CE</option>
@@ -41,7 +41,7 @@
                             </div>
                             <div>
                                 <label for="identify_document">Cargue Documen. Identificacion *</label>
-                                <input id="identify_document" class="" type="file"  name="identity_document" accept="application/pdf">
+                                <input id="identify_document" class="" type="file"  name="identify_document" accept="application/pdf" title="Examinar">
                                 </div>
                             <br>
                             <div class="form-group">
@@ -173,6 +173,20 @@
                                 </select>
                               </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label for="id_course" class="col-sm-6 col-form-label">Curso</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" name="id_course" id="id_course">
+                                    <option>Seleccionar</option>
+                                    @foreach ( $courses as $grade)
+                                        <option value="{{ $grade->id }}">{{ $grade->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+
                         <br>
 
                         <div class="button text-center">

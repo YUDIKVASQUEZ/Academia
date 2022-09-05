@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
+use App\Models\Course;
 use App\Models\Department;
 use App\Models\Municipality;
 use App\Models\Student;
@@ -16,11 +17,13 @@ class StudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   $countries = Country::all();
+    {
+        $courses = Course::all();
+        $countries = Country::all();
         $departaments = Department::all();
         $municipalities = Municipality::all();
         $trainee = Student::all();
-        return view('students.index', compact('trainee'));
+        return view('students.index', compact('trainee', 'courses', 'countries', 'departaments', 'municipalities'));
        // return $trainee;
     }
 
@@ -31,10 +34,12 @@ class StudentController extends Controller
      */
     public function create()
     {
+        $courses = Course::all();
         $countries = Country::all();
         $departaments = Department::all();
         $municipalities = Municipality::all();
-        return view('students.create', compact('countries', 'departaments', 'municipalities'));
+        $trainee = Student::all();
+        return view('students.create', compact('trainee', 'courses', 'countries', 'departaments', 'municipalities'));
     }
 
     /**
@@ -51,18 +56,16 @@ class StudentController extends Controller
         if($request->hasFile('identify_document')){
             $trainee->identify_document = $request->file('identify_document')->store('public/students/identify_document');
         }
-        $trainee->document_issuing_country = $request->input('document_issuing_country');
-        $trainee->issuing_department = $request->input('issuing_department');
-        $trainee->issuing_municipality = $request->input('issuing_municipality');
-        $trainee->name = $request->input('name');
+        $trainee->id_issuing_municipality = $request->input('id_issuing_municipality');
+        $trainee->expedition_date = $request->input('expedition_date');
+        $trainee->name = $request->input('names');
         $trainee->first_last_name = $request->input('first_last_name');
         $trainee->second_last_name = $request->input('second_last_name');
         $trainee->gender = $request->input('gender');
         $trainee->birth_date = $request->input('birth_date');
-        $trainee->birth_country = $request->input('birth_country');
-        $trainee->birth_department = $request->input('birth_department');
-        $trainee->birth_municipality = $request->input('birth_municipality');
+        $trainee->id_birth_municipality = $request->input('id_birth_municipality');
         $trainee->stratum = $request->input('stratum');
+        $trainee->id_course = $request->input('id_course');
         $trainee->save();
         return view('students.add_student');
     }
